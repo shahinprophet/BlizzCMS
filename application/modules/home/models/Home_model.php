@@ -41,40 +41,18 @@ class Home_model extends CI_Model {
         }
     }
 
-    public function updateconfigs($data)
+    public function updateconfigs($name, $discord, $realmlist, $expansion, $license)
     {
         $this->load->library('config_writer');
         $blizz = $this->config_writer->get_instance(APPPATH.'config/blizzcms.php', 'config');
-       
-        if ($this->config_writer->isEnabled($data['bnet'])) 
-            $bnet_enable = true;
-        else
-            $bnet_enable = false;
+        $plus = $this->config_writer->get_instance(APPPATH.'config/plus.php', 'config');
 
-        $blizz->write('website_name', $data['name']);
-        $blizz->write('discord_invitation', $data['invitation']);
-        $blizz->write('realmlist', $data['realmlist']);
-        $blizz->write('expansion', $data['expansion']);
-        $blizz->write('bnet_enabled', $bnet_enable);
-        $blizz->write('emulator', $data['emulator']);
-        $blizz->write('migrate_status', '1');
-
-
-
-        /*
-        $seo = $this->config_writer->get_instance(APPPATH.'config/seo.php', 'config');
-
-        $seo->write('seo_title', $data['']);
-        $seo->write('seo_imgurl', $data['']);
-        $seo->write('seo_meta_enable', $data['']);
-        $seo->write('seo_meta_desc', $data['']);
-        $seo->write('seo_meta_keywords', $data['']);
-        $seo->write('seo_twitter_enable', $data['']);
-        $seo->write('seo_og_enable', $data['']);
-        $seo->write('seo_robots_enable', $data['']);
-        $seo->write('seo_robots_config', $data['']);
-        */
-
+        $blizz->write('website_name', $name);
+        $blizz->write('discord_invitation', $discord);
+        $blizz->write('realmlist', $realmlist);
+        $blizz->write('expansion', $expansion);
+        $blizz->write('migrate_status', '0');
+        $plus->write('license_plus', $license);
         return true;
     }
 }
