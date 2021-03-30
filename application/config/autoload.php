@@ -114,7 +114,6 @@ $autoload['helper'] = array('url', 'file', 'text','form', 'html', 'utils');
 */
 $dataconf = array(
 	'blizzcms',
-	'plus',
 	'seo'
 );
 $autoload['config'] = $dataconf;
