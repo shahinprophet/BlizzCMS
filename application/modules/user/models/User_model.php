@@ -117,7 +117,11 @@ class User_model extends CI_Model
 
         switch ($emulator) {
             case 'srp6':
-                $validate = ($accgame->verifier === $this->wowauth->game_hash($accgame->username, $password, 'srp6', $accgame->salt));
+                if ($this->auth->field_exists('verifier', 'account')):
+                    $validate = ($accgame->verifier === $this->wowauth->game_hash($accgame->username, $password, 'srp6', $accgame->salt));
+                else:
+                    $validate = ($accgame->v === $this->wowauth->game_hash($accgame->username, $password, 'srp6', $accgame->s));
+                endif;
                 break;
             case 'hex':
                 $validate = (strtoupper($accgame->v) === $this->wowauth->game_hash($accgame->username, $password, 'hex', $accgame->s));
@@ -160,21 +164,33 @@ class User_model extends CI_Model
         $expansion = $this->wowgeneral->getRealExpansionDB();
         $emulator = $this->config->item('emulator');
 
-
         if ($emulator == "srp6") {
             $salt = random_bytes(32);
 
-            $data = array(
-                'username'  => $username,
-                'salt'      => $salt,
-                'verifier' => $this->wowauth->game_hash($username, $password, 'srp6', $salt),
-                'email'     => $email,
-                'expansion' => $expansion,
-                'session_key_auth' => null,
-                'session_key_bnet' => null
-            );
+            if ($this->auth->field_exists('verifier', 'account')):
+                $data = array(
+                    'username'  => $username,
+                    'salt'      => $salt,
+                    'verifier' => $this->wowauth->game_hash($username, $password, 'srp6', $salt),
+                    'email'     => $email,
+                    'expansion' => $expansion,
+                    'session_key_auth' => null,
+                    'session_key_bnet' => null
+                );
+            else:
+                $data = array(
+                    'username'  => $username,
+                    's'      => $salt,
+                    'v' => $this->wowauth->game_hash($username, $password, 'srp6', $salt),
+                    'email'     => $email,
+                    'expansion' => $expansion,
+                    'session_key_auth' => null,
+                    'session_key_bnet' => null
+                );
+            endif;
 
             $this->auth->insert('account', $data);
+
         } elseif ($emulator == "hex") {
             $salt = strtoupper(bin2hex(random_bytes(32)));
 
@@ -462,7 +478,28 @@ class User_model extends CI_Model
                 return false;
      }
 
+     /**
+      * @param mixed $oldpass
+      * @param mixed $newpass
+      * @param mixed $renewpass
+      * 
+      * @return [type]
+      */
+     public function changePassword($oldpass, $newpass, $renewpass)
+     {
+        $accgame = $this->auth->where('id', $this->session->userdata('wow_sess_id'))->get('account')->row();
+        $emulator = $this->config->item('emulator');
 
+        
+     }
+
+     /**
+      * @param mixed $email
+      * @param mixed $newemail
+      * @param mixed $password
+      * 
+      * @return [type]
+      */
      public function changeEmail($email, $newemail, $password)
      {
         $accgame =  $this->auth->where('email', $email)->get('account')->row();
@@ -519,6 +556,7 @@ class User_model extends CI_Model
             );
 
             $this->auth->update('account', $data);
+
         } elseif ($emulator == "hex") {
             $salt = strtoupper(bin2hex(random_bytes(32)));
 
@@ -535,6 +573,7 @@ class User_model extends CI_Model
 
             $this->auth->update('account', $data);
         }
+        
         return true;
      }
 

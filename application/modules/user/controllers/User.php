@@ -277,10 +277,34 @@ class User extends MX_Controller {
 
     public function newpass()
     {
-        $oldpass = $this->input->post('oldpass');
-        $newpass = $this->input->post('newpass');
-        $renewpass = $this->input->post('renewpass');
-        echo $this->user_model->changePassword($oldpass, $newpass, $renewpass);
+        if (!$this->wowgeneral->getMaintenance())
+        redirect(base_url('maintenance'),'refresh');
+
+        
+        if ($this->input->method() == 'post') {
+            $this->form_validation->set_rules('change_oldpass', 'Old password', 'trim|required');
+            $this->form_validation->set_rules('change_password', 'New password', 'trim|required');
+            $this->form_validation->set_rules('change_renewchange_password', 'Confirm password', 'trim|required|matches[change_password]');
+
+
+            if ($this->form_validation->run() == false) {
+                redirect(base_url('settings'), 'refresh');
+            } else {
+            }
+        }
+        else
+        {
+            $oldpass = $this->input->post('oldpass');
+            $newpass = $this->input->post('change_newemail', TRUE);
+            $renewpass   = $this->input->post('change_password');
+
+            $change = $this->user_model->changePassword($oldpass, $newpass, $renewpass);
+
+            if ($change)
+                redirect(site_url('logout'), 'refresh');
+            else
+                redirect(site_url('settings'), 'refresh');
+        }
     }
 
     public function newemail()
