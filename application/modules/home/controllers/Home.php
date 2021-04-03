@@ -106,7 +106,7 @@ class Home extends MX_Controller {
             'emulator' => $this->input->post('website_emulator'),
         );
 
-        $data = $this->home_model->updateconfigs($data);
+        $this->home_model->updateconfigs($data);
 
         if ($this->migration->current() === FALSE)
         {

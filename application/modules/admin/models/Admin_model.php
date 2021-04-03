@@ -185,7 +185,7 @@ class Admin_model extends CI_Model {
     {
         $this->load->library('config_writer');
 
-        $writer = $this->config_writer->get_instance(APPPATH.'config/plus.php', 'config');
+        $writer = $this->config_writer->get_instance(APPPATH.'config/blizzcms.php', 'config');
         $writer->write('recaptcha_sitekey', $recaptcha);
         $writer->write('smtp_host', $smtphost);
         $writer->write('smtp_user', $smtpuser);
