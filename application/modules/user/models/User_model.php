@@ -135,7 +135,6 @@ class User_model extends CI_Model
         if (!$this->find_user($accgame->id)) {
             $this->db->insert('users', [
                 'id'        => $accgame->id,
-                'nickname'  => $accgame->username,
                 'username'  => $accgame->username,
                 'email'     => $accgame->email,
                 'joined_at' => strtotime($accgame->joindate)
