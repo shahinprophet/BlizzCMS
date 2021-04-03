@@ -110,7 +110,7 @@
               </div>
               </div>
               <div class="uk-margin">
-                <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom" type="submit" id="button_migrate"><i class="fas fa-sync fa-spin"></i> Finish Migration</button>
+                <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom" type="submit"><i class="fas fa-sync fa-spin"></i> Finish Migration</button>
               </div>
             <?= form_close(); ?>
           </div>

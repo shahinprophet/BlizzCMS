@@ -95,6 +95,8 @@ class Home extends MX_Controller {
 
     public function setconfig()
     {
+        $this->load->library('migration');
+
         $data = array(
             'name' => $this->input->post('website_name'),
             'invitation' => $this->input->post('website_invitation'),
@@ -105,8 +107,12 @@ class Home extends MX_Controller {
         );
 
         $data = $this->home_model->updateconfigs($data);
-        if ($data)
-          redirect(base_url());
-          
+
+        if ($this->migration->current() === FALSE)
+        {
+            show_error($this->migration->error_string());
+        } else {
+            redirect(base_url());
+        }
     }
 }

@@ -57,24 +57,7 @@ class Home_model extends CI_Model {
         $blizz->write('expansion', $data['expansion']);
         $blizz->write('bnet_enabled', $bnet_enable);
         $blizz->write('emulator', $data['emulator']);
-        $blizz->write('migrate_status', '1');
-
-
-
-        /*
-        $seo = $this->config_writer->get_instance(APPPATH.'config/seo.php', 'config');
-
-        $seo->write('seo_title', $data['']);
-        $seo->write('seo_imgurl', $data['']);
-        $seo->write('seo_meta_enable', $data['']);
-        $seo->write('seo_meta_desc', $data['']);
-        $seo->write('seo_meta_keywords', $data['']);
-        $seo->write('seo_twitter_enable', $data['']);
-        $seo->write('seo_og_enable', $data['']);
-        $seo->write('seo_robots_enable', $data['']);
-        $seo->write('seo_robots_config', $data['']);
-        */
-
-        return true;
+        $blizz->write('migrate_status', '0');
+        
     }
 }
