@@ -167,7 +167,16 @@ class User_model extends CI_Model
         if ($emulator == "srp6") {
             $salt = random_bytes(32);
 
-            if ($this->auth->field_exists('verifier', 'account')):
+            if ($this->auth->field_exists('sessionkey', 'account')):
+                $data = array(
+                    'username'  => $username,
+                    'salt'      => $salt,
+                    'verifier' => $this->wowauth->game_hash($username, $password, 'srp6', $salt),
+                    'email'     => $email,
+                    'expansion' => $expansion,
+                    'sessionkey' => null
+                );
+            else:
                 $data = array(
                     'username'  => $username,
                     'salt'      => $salt,
@@ -176,15 +185,6 @@ class User_model extends CI_Model
                     'expansion' => $expansion,
                     'session_key_auth' => null,
                     'session_key_bnet' => null
-                );
-            else:
-                $data = array(
-                    'username'  => $username,
-                    's'      => $salt,
-                    'v' => $this->wowauth->game_hash($username, $password, 'srp6', $salt),
-                    'email'     => $email,
-                    'expansion' => $expansion,
-                    'sessionkey' => null
                 );
             endif;
 
