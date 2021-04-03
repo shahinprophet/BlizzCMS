@@ -141,7 +141,7 @@ class User_model extends CI_Model
                 'id'        => $accgame->id,
                 'username'  => $accgame->username,
                 'email'     => $accgame->email,
-                'joined_at' => strtotime($accgame->joindate)
+                'joindate' => strtotime($accgame->joindate)
             ]);
         }
 
