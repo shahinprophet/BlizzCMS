@@ -35,8 +35,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @filesource
  */
 
-require './vendor/autoload.php';
-
 use \PayPal\Api\Payment;
 use \PayPal\Api\PaymentExecution;
 
