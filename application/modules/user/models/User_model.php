@@ -184,8 +184,7 @@ class User_model extends CI_Model
                     'v' => $this->wowauth->game_hash($username, $password, 'srp6', $salt),
                     'email'     => $email,
                     'expansion' => $expansion,
-                    'session_key_auth' => null,
-                    'session_key_bnet' => null
+                    'sessionkey' => null
                 );
             endif;
 
