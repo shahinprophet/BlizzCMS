@@ -199,6 +199,7 @@ class User_model extends CI_Model
                 's'          => $salt,
                 'email'     => $email,
                 'expansion' => $expansion,
+                'last_ip' => '127.0.0.1'
             );
 
             $this->auth->insert('account', $data);
