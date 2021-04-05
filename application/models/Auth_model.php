@@ -12,11 +12,6 @@ class Auth_model extends CI_Model {
     {
         parent::__construct();
         $this->auth = $this->load->database('auth', TRUE);
-
-        if ($this->isLogged() && $this->checkAccountExist() == 0)
-        {
-            $this->synchronizeAccount();
-        }
     }
 
     /**
@@ -233,10 +228,11 @@ class Auth_model extends CI_Model {
      */
     public function getRank($id = null)
     {
-        $account = $id ?? $this->session->userdata('wow_sess_id');
+        $account = ($id) ?? $this->session->userdata('wow_sess_id');
 
-        $value = $this->auth->field_exists('SecurityLevel', 'account_access') ? $this->auth->where('AccountID', $account)->get('account_access')
-            ->row('SecurityLevel') : $this->auth->where('id', $account)->get('account_access')->row('gmlevel');
+        $value = ($this->auth->file_exists('SecurityLevel', 'account_access')) ? $this->auth->where('AccountID', $account)->get('account_access')->row('SecurityLevel') : 
+            (($this->auth->file_exists('gmlevel', 'account'))  ? $this->auth->where('id', $account)->get('account')->row('gmlevel') : 
+            $this->auth->where('id', $account)->get('account_access')->row('gmlevel'));
 
         if (! empty($value))
         {
@@ -348,35 +344,4 @@ class Auth_model extends CI_Model {
 
 		return ($query == 0);
 	}
-
-    /**
-     * @return [type]
-     */
-    public function checkAccountExist()
-    {
-        return $this->db->select('id')->where('id', $this->session->userdata('wow_sess_id'))->get('users')->num_rows();
-    }
-
-    /**
-     * @return [type]
-     */
-    public function synchronizeAccount()
-    {
-        if ($this->checkAccountExist() == 0)
-        {
-            $joindate = strtotime($this->getJoinDateID($this->session->userdata('wow_sess_id')));
-
-            $data = array(
-                'id' => $this->session->userdata('wow_sess_id'),
-                'username' => $this->session->userdata('wow_sess_username'),
-                'email' => $this->session->userdata('wow_sess_email'),
-                'joindate' => $joindate
-            );
-
-            $this->db->insert('users', $data);
-            return true;
-        }
-        else
-            return false;
-    }
 }
