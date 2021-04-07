@@ -58,16 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$datalib = array(
-	'database',
-	'session',
-	'form_validation',
-	'parser',
-	'template',
-	'Wowcms',
-	'cart'
-);
-$autoload['libraries'] = $datalib;
+$autoload['libraries'] = array('database', 'session', 'form_validation', 'parser', 'template', 'Wowcms', 'cart');
 
 /*
 | -------------------------------------------------------------------
@@ -98,7 +89,7 @@ $autoload['drivers'] = array('cache');
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url', 'file', 'text','form', 'html', 'utils');
+$autoload['helper'] = array('url', 'file', 'text', 'form', 'html', 'language');
 
 /*
 | -------------------------------------------------------------------
@@ -112,11 +103,7 @@ $autoload['helper'] = array('url', 'file', 'text','form', 'html', 'utils');
 | config files.  Otherwise, leave it blank.
 |
 */
-$dataconf = array(
-	'blizzcms',
-	'seo'
-);
-$autoload['config'] = $dataconf;
+$autoload['config'] = array('blizzcms', 'seo');
 
 /*
 | -------------------------------------------------------------------
@@ -145,10 +132,9 @@ $autoload['language'] = array('general', 'notification', 'admin');
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$models = array(
-	'auth_model'	=> 'wowauth',
+$autoload['model'] = array(
+	'auth_model'    => 'wowauth',
 	'general_model' => 'wowgeneral',
-	'realm_model'	=> 'wowrealm',
+	'realm_model'   => 'wowrealm',
 	'module_model'  => 'wowmodule'
 );
-$autoload['model'] = array($models);

@@ -55,7 +55,7 @@ class Admin extends MX_Controller {
         if(!$this->wowauth->isLogged())
             redirect(base_url(),'refresh');
 
-        if($this->wowauth->getRank($this->session->userdata('wow_sess_id')) < config('admin_access_level'))
+        if($this->wowauth->getRank($this->session->userdata('wow_sess_id')) < config_item('admin_access_level'))
             redirect(base_url(),'refresh');
 
         if($this->admin_model->getBanSpecify($this->session->userdata('wow_sess_id'))->num_rows())
