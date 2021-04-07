@@ -17,7 +17,7 @@ $config['discord_type'] = '1';
  * Default: 7
  * The new invitations have 10 characters so you should change from 7 to 10 for example.
 */
-$config['discord_invitation_length'] = 7;
+$config['discord_invitation_length'] = 10;
 
 /**
  *

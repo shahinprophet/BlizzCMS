@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * Write the name of your website this will appear by default.
  *
 */
-$config['website_name'] = '';
+$config['website_name'] = 'localhost';
 
 /**
  *
@@ -35,7 +35,7 @@ $config['maintenance_mode'] = '0';
  * Write the invitation of your discord channel.
  *
 */
-$config['discord_invitation'] = '';
+$config['discord_invitation'] = 'wggf';
 
 /**
  *
@@ -44,7 +44,7 @@ $config['discord_invitation'] = '';
  * Write the realmlist used on your server to publish it on the website.
  *
 */
-$config['realmlist'] = '';
+$config['realmlist'] = 'logon.plus.test';
 
 /**
  *  Bnet enabled?
@@ -82,7 +82,7 @@ $config['emulator'] = 'srp6';
  * 8 = Battle for Azeroth
  *
 */
-$config['expansion'] = '';
+$config['expansion'] = '1';
 
 /**
  *
@@ -114,4 +114,79 @@ $config['social_youtube'] = '';
  * Warning: Don't change this configuration.
  *
 */
-$config['migrate_status'] = '1';
+$config['migrate_status'] = '0';
+
+
+/**
+ *
+ * Recaptcha (V2)
+ *
+ * Write the necessary keys to enable recaptcha in the register
+ * Use the following page to create the necessary keys.
+ * https://www.google.com/recaptcha/admin#list
+ *
+*/
+$config['recaptcha_sitekey'] = '';
+
+/**
+ *
+ * SMTP
+ *
+ * Write the necessary information for use SMTP to use in recovery password
+ * and account activation.
+ *
+*/
+$config['smtp_host'] = '';
+$config['smtp_user'] = '';
+$config['smtp_pass'] = '';
+$config['smtp_port'] = '465';
+$config['smtp_crypto'] = 'ssl';
+
+/**
+ *
+ * Email Settings
+ *
+ * Write the necessary information to use in sending emails.
+ *
+*/
+$config['email_settings_sender'] = '';
+$config['email_settings_sender_name'] = '';
+
+/**
+ *
+ * Account Activation
+ *
+ * Enable or Disable the option to activate accounts by email.
+ *
+ * TRUE  = Enable
+ * FALSE = Disable
+ *
+*/
+$config['account_activation_required'] = false;
+
+/**
+ *
+ * Administrator Access Level
+ *
+ * Minimum gmlevel to access to admin sections.
+ *
+*/
+$config['admin_access_level'] = '3';
+
+/**
+ *
+ * Moderator Access Level
+ *
+ * Minimum gmlevel to access to mod sections.
+ *
+*/
+$config['mod_access_level'] = '2';
+
+/**
+ *
+ * BlizzCMS Plus License
+ *
+ * Still not licensed? Generate at https://wow-cms.com/en/licenses
+ *
+*/
+$config['license_plus'] = '4LLMY-MF87R-Q6PTM-OR0VX';

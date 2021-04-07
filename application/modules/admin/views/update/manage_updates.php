@@ -25,7 +25,7 @@
                     <div class="uk-grid uk-grid-small" data-uk-grid>
                       <div class="uk-width-auto@m uk-text-center uk-text-left@m">
                         <h3 class="uk-h3 uk-text-bold uk-margin-remove"><span uk-icon="icon: blizzcms-icon;ratio: 0.8"></span> V<?= $this->update_model->getCurrentVersion(); ?> </h3>
-                        <p class="uk-margin-small uk-text-small"><?= $this->lang->line('cms_version_currently'); ?></p>
+                        <p class="uk-margin-small uk-text-small"><?= $this->lang->line('cms_version_currently'); ?> </p>
                       </div>
                       <div class="uk-width-expand uk-text-center uk-text-right@m">
                         <button href="<?= base_url('admin/cms/update') ?>" class="uk-button uk-button-primary uk-button-large" id="button_updatecms" onclick="UpdateCMS(event)"><i class="fas fa-sync fa-spin"></i> <?= $this->lang->line('button_update_version'); ?></button>
