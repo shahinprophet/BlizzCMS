@@ -871,7 +871,7 @@ class Admin_model extends CI_Model {
     {
         $qq = $this->db->select('route')->where('route', $route)->get('store_categories')->row('route');
 
-        if($qq == $name)
+        if($qq == $route)
             return true;
         else
             return false;
