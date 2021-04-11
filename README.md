@@ -8,7 +8,7 @@
 | :----------- | :---------- |
 | **PHP Version** | **7.1 or newer** is recommended |
 | **Apache Modules** | mod_headers - mod_rewrite - mod_expires |
-| **PHP Extensions** | curl - gd2 - mbstring - mysqli - openssl - soap |
+| **PHP Extensions** | curl - gd2 - mbstring - mysqli - openssl - soap - gmp|
 
 ## In linux (Apache Modules)
 
