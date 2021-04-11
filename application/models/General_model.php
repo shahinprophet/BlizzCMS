@@ -389,10 +389,11 @@ class General_model extends CI_Model {
             case '7':
             case '11':
             case '22':
-            case '25':
-            case '29':
+            case '25': // Pandaren alliance
             case '30':
+            case '32':
             case '34':
+            case '37':
                 return 'Alliance';
             break;
             case '2':
@@ -401,9 +402,10 @@ class General_model extends CI_Model {
             case '8':
             case '9':
             case '10':
-            case '26':
-            case '27':
+            case '26': // Pandaren horde
             case '28':
+            case '31':
+            case '35':
             case '36':
                 return 'Horde';
             break;
