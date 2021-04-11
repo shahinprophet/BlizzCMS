@@ -38,16 +38,6 @@ class Auth_model extends CI_Model {
     }
 
     /**
-     * @param mixed $id
-     * 
-     * @return [type]
-     */
-    public function getGmSpecify($id)
-    {
-        return $this->auth->select('id')->where('id', $id)->get('account_access');
-    }
-
-    /**
      * @return [type]
      */
     public function randomUTF()
