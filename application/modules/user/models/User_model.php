@@ -487,10 +487,39 @@ class User_model extends CI_Model
       */
      public function changePassword($oldpass, $newpass, $renewpass)
      {
-        $accgame = $this->auth->where('id', $this->session->userdata('wow_sess_id'))->get('account')->row();
-        $emulator = $this->config->item('emulator');
+         $accgame = $this->auth->where('id', $this->session->userdata('wow_sess_id'))->get('account')->row();
+         $emulator = $this->config->item('emulator');
 
-        
+         if (empty($accgame)) {
+             return false;
+         }
+
+         switch ($emulator) {
+            case 'srp6':
+                $oldpass_hash = ($accgame->verifier === $this->wowauth->game_hash($accgame->username, $oldpass, 'srp6', $accgame->salt));
+                $newpass_hash = ($accgame->verifier === $this->wowauth->game_hash($accgame->username, $newpass, 'srp6', $accgame->salt));
+                break;
+            case 'hex':
+                $oldpass_hash = (strtoupper($accgame->v) === $this->wowauth->game_hash($accgame->username, $oldpass, 'hex', $accgame->s));
+                $newpass_hash = (strtoupper($accgame->v) === $this->wowauth->game_hash($accgame->username, $newpass, 'hex', $accgame->s));
+                break;
+            case 'old_trinity':
+                $oldpass_hash = hash_equals(strtoupper($accgame->sha_pass_hash), $this->wowauth->game_hash($accgame->username, $oldpass));
+                $newpass_hash = hash_equals(strtoupper($accgame->sha_pass_hash), $this->wowauth->game_hash($newpass->username, $oldpass));
+                break;
+        }
+
+         if (!isset($validate) || !$validate) {
+             return false;
+         }
+
+         if ($oldpass_hash == $accgame->verifier or $oldpass_hash == $accgame->v or $oldpass_hash == $accgame->sha_pass_hash) {
+             if ($this->generateHash($emulator, $accgame->username, $newpass_hash)) {
+                 return true;
+             } else {
+                 return false;
+             }
+         }
      }
 
      /**

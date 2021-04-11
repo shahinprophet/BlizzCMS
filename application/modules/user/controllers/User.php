@@ -290,20 +290,21 @@ class User extends MX_Controller {
             if ($this->form_validation->run() == false) {
                 redirect(base_url('settings'), 'refresh');
             } else {
+                $oldpass = $this->input->post('oldpass');
+                $newpass = $this->input->post('change_newemail', TRUE);
+                $renewpass   = $this->input->post('change_password');
+    
+                $change = $this->user_model->changePassword($oldpass, $newpass, $renewpass);
+    
+                if ($change)
+                    redirect(site_url('logout'), 'refresh');
+                else
+                    redirect(site_url('settings'), 'refresh');
             }
         }
         else
         {
-            $oldpass = $this->input->post('oldpass');
-            $newpass = $this->input->post('change_newemail', TRUE);
-            $renewpass   = $this->input->post('change_password');
-
-            $change = $this->user_model->changePassword($oldpass, $newpass, $renewpass);
-
-            if ($change)
-                redirect(site_url('logout'), 'refresh');
-            else
-                redirect(site_url('settings'), 'refresh');
+            redirect(base_url(), 'refresh');
         }
     }
 
@@ -344,7 +345,13 @@ class User extends MX_Controller {
 
     public function newavatar()
     {
-        $avatar = $this->input->post('avatar');
-        echo $this->user_model->changeAvatar($avatar);
+        $avatar = $this->input->post('change_avatar');
+
+        $change = $this->user_model->changeAvatar($avatar);
+
+        if ($change)
+            redirect(site_url('panel'), 'refresh');
+        else
+            redirect(site_url('settings'), 'refresh');
     }
 }
