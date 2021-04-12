@@ -290,16 +290,25 @@ class User extends MX_Controller {
             if ($this->form_validation->run() == false) {
                 redirect(base_url('settings'), 'refresh');
             } else {
-                $oldpass = $this->input->post('oldpass');
-                $newpass = $this->input->post('change_newemail', TRUE);
-                $renewpass   = $this->input->post('change_password');
+                $oldpass = $this->input->post('change_oldpass');
+                $newpass = $this->input->post('change_password');
+                $renewpass   = $this->input->post('change_renewchange_password');
     
-                $change = $this->user_model->changePassword($oldpass, $newpass, $renewpass);
+                if (! $this->wowauth->valid_password($this->session->userdata('wow_sess_username'), $oldpass))
+                {
+                    redirect(site_url('settings'));
+			    }
+
+
+                $change = $this->user_model->changePassword($newpass);
     
                 if ($change)
                     redirect(site_url('logout'), 'refresh');
                 else
-                    redirect(site_url('settings'), 'refresh');
+                    echo $change;
+                    echo $oldpass;
+                    echo $newpass;
+                    //redirect(site_url('settings'), 'refresh');
             }
         }
         else

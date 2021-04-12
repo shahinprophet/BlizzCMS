@@ -76,24 +76,43 @@ class Auth_model extends CI_Model {
     }
 
     /**
-     * @param mixed $id
-     * 
-     * @return [type]
-     */
-    public function getPasswordAccountID($id)
-    {
-        return $this->auth->select('sha_pass_hash')->where('id', $id)->get('account')->row('sha_pass_hash');
-    }
+	 * Validate password
+	 *
+	 * @param string $username
+	 * @param string $password
+	 * @return boolean
+	 */
+	public function valid_password($username, $password)
+	{
+		$account  = $this->auth->where('username', $username)->or_where('email', $username)->get('account')->row();
+		$emulator = config_item('emulator');
 
-    /**
-     * @param mixed $id
-     * 
-     * @return [type]
-     */
-    public function getPasswordBnetID($id)
-    {
-        return $this->auth->select('sha_pass_hash')->where('id', $id)->get('battlenet_accounts')->row('sha_pass_hash');
-    }
+		if (empty($account))
+		{
+			return false;
+		}
+
+		switch ($emulator)
+		{
+			case 'srp6':
+				$validate = ($account->verifier === $this->game_hash($account->username, $password, 'srp6', $account->salt));
+				break;
+			case 'hex':
+				$validate = (strtoupper($account->v) === $this->game_hash($account->username, $password, 'hex', $account->s));
+				break;
+			case 'old-trinity':
+				$validate = hash_equals(strtoupper($account->sha_pass_hash), $this->game_hash($account->username, $password));
+				break;
+		}
+
+		if (! isset($validate))
+		{
+			return false;
+		}
+
+		return $validate;
+	}
+
 
     /**
      * @param mixed $account
