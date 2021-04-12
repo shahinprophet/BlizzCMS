@@ -833,7 +833,7 @@ class Admin_model extends CI_Model {
 
     public function insertStoreCategory($name, $route, $realmid, $main, $father)
     {
-        if($this->StoreCategoryCheckRoute($route))
+        if(!$this->StoreCategoryCheckRoute($route))
         {
             $data = array(
                 'name' => $name,
@@ -852,7 +852,7 @@ class Admin_model extends CI_Model {
 
     public function updateSpecifyStoreCategory($idlink, $name, $route, $realmid)
     {
-        if($this->StoreCategoryCheckRoute($route))
+        if(!$this->StoreCategoryCheckRoute($route))
         {
             $update = array(
                 'name' => $name,

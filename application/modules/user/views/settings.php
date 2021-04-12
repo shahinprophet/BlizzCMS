@@ -140,7 +140,7 @@
                 <h5 class="uk-h5 uk-text-uppercase uk-text-bold"><i class="fas fa-key"></i> <?= $this->lang->line('panel_change_password'); ?></h5>
               </div>
               <div class="uk-card-body">
-                <?= form_open(''); ?>
+                <?= form_open(base_url($lang.'/changepass')); ?>
                 <div class="uk-margin uk-light">
                   <label class="uk-form-label"><?= $this->lang->line('placeholder_current_password'); ?>:</label>
                   <div class="uk-form-controls">
@@ -183,7 +183,7 @@
                 <h5 class="uk-h5 uk-text-uppercase uk-text-bold"><i class="fas fa-id-badge"></i> <?= $this->lang->line('button_change_avatar'); ?></h5>
               </div>
               <div class="uk-card-body">
-                <?= form_open('', 'id="changeavatarForm" onsubmit="ChangeAvatarForm(event)"'); ?>
+                <?= form_open(base_url($lang.'/changeavatar')); ?>
                 <div class="uk-margin uk-light">
                   <div class="uk-form-controls">
                     <div class="uk-grid uk-child-width-auto uk-flex uk-flex-center" data-uk-grid>
