@@ -305,10 +305,7 @@ class User extends MX_Controller {
                 if ($change)
                     redirect(site_url('logout'), 'refresh');
                 else
-                    echo $change;
-                    echo $oldpass;
-                    echo $newpass;
-                    //redirect(site_url('settings'), 'refresh');
+                    redirect(site_url('settings'), 'refresh');
             }
         }
         else
