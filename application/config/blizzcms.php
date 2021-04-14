@@ -180,4 +180,6 @@ $config['mod_access_level'] = '2';
  * Warning: Don't change this configuration.
  *
 */
-$config['migrate_status'] = '0';
+$config['migrate_status'] = '1';
+
+
