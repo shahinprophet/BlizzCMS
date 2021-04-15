@@ -31,7 +31,7 @@
             $this->admin_model->insertNews($title, $desc, $name_new);
           }
           else
-            echo '<div class="uk-width-1-1@l uk-width-1-1@xl"><div class="uk-alert-danger" uk-alert><a class="uk-alert-close" uk-close></a><p><i class="fas fa-exclamation-circle"></i> '.$this->lang->line('alert_upload_error').'</p></div></div>';
+            $this->admin_model->insertNews($title, $desc, 'news.jpg');
         } ?>
         <div class="uk-card uk-card-default">
           <div class="uk-card-body">
@@ -56,7 +56,7 @@
                 <div class="uk-form-controls">
                   <div class="uk-inline uk-width-1-1">
                     <div uk-form-custom="target: true">
-                      <input type="file" name="news_image" required>
+                      <input type="file" name="news_image">
                       <input class="uk-input uk-form-width-medium" type="text" disabled>
                       <button class="uk-button uk-button-primary" type="button" tabindex="-1"><i class="fas fa-file-upload"></i> <?= $this->lang->line('button_select'); ?></button>
                     </div>
