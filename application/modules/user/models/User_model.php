@@ -280,30 +280,9 @@ class User_model extends CI_Model
             $password_generated = "";
             $password_generated = substr(str_shuffle($allowed_chars), 0, 14);
             $newpass = $password_generated;
-            $newpassI = $this->wowauth->Account($username, $newpass);
-            $newpassII = $this->wowauth->Battlenet($email, $newpass);
 
-            if ($this->wowgeneral->getExpansionAction() == 1) {
-                $accupdate = array(
-                    'sha_pass_hash' => $newpassI,
-                    'sessionkey' => '',
-                    'v' => '',
-                    's' => ''
-                );
 
-                $this->auth->where('id', $ucheck)->update('account', $accupdate);
-            } else {
-                $accupdate = array(
-                    'sha_pass_hash' => $newpassI,
-                    'sessionkey' => '',
-                    'v' => '',
-                    's' => ''
-                );
-
-                $this->auth->where('id', $ucheck)->update('account', $accupdate);
-
-                $this->auth->set('sha_pass_hash', $newpassII)->where('id', $echeck)->update('battlenet_accounts');
-            }
+            $this->changePassword($ucheck, $newpass);
 
             $mail_message = 'Hi, <span style="font-weight: bold;text-transform: uppercase;">' . $username . '</span> You have sent a request for your account password to be reset.<br>';
             $mail_message .= 'Your new password is: <span style="font-weight: bold;">' . $password_generated . '</span><br>';
@@ -485,9 +464,10 @@ class User_model extends CI_Model
       * 
       * @return [type]
       */
-     public function changePassword($newpass)
+     public function changePassword($id = null, $newpass)
      {
-        $accgame = $this->auth->where('id', $this->session->userdata('wow_sess_id'))->get('account')->row();
+        $account = $id ?? $this->session->userdata('wow_sess_id');
+        $accgame = $this->auth->where('id', $account)->get('account')->row();
         $emulator = $this->config->item('emulator');
 
         if (empty($accgame)) {
